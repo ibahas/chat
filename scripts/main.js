@@ -246,7 +246,12 @@ function playMusic(file) {
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   
-  var userName = user.displayName;        
+  var userName = user.displayName;
+  console.log("name");
+  console.log(userName);
+  console.log("MESSAGE");
+  console.log(name);
+  
   if(userName !== name){
     playMusic("https://notificationsounds.com/soundfiles/44c4c17332cace2124a1a836d9fc4b6f/file-sounds-1147-that-was-quick.mp3");
   }
