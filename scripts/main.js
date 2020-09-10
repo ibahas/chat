@@ -246,7 +246,7 @@ function playMusic(file) {
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   
-    playMusic("https://notificationsounds.com/soundfiles/44c4c17332cace2124a1a836d9fc4b6f/file-sounds-1147-that-was-quick.mp3");
+    
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
@@ -260,6 +260,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
   div.querySelector('.name').textContent = name;
+  console.log(name);
   var messageElement = div.querySelector('.message');
   if (text) { // If the message is text.
     messageElement.textContent = text;
