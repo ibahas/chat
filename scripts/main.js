@@ -126,7 +126,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
   if (!file.type.match('image.*')) {
     var data = {
       message: 'You can only share images',
-      timeout: 2000
+      timeout: 10000
     };
     this.signInSnackbar.MaterialSnackbar.showSnackbar(data);
     return;
@@ -234,8 +234,18 @@ FriendlyChat.MESSAGE_TEMPLATE =
 // A loading image URL.
 FriendlyChat.LOADING_IMAGE_URL = 'https://www.google.com/images/spin-32.gif';
 
+
+
+var music = new Audio();
+function playMusic(file) {
+    music.pause();
+    music = new Audio(file);
+    music.play();
+}
+
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+  playMusic("https://notificationsounds.com/soundfiles/44c4c17332cace2124a1a836d9fc4b6f/file-sounds-1147-that-was-quick.mp3");
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
