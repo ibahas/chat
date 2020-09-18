@@ -269,11 +269,10 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-  } var dateElement = div.querySelector('.date');
-  if (date) { // If the message is text.
+  } 
+  var dateElement = div.querySelector('.date');
+  if (date) { 
     dateElement.textContent = date;
-    // Replace all line breaks by <br>.
-    dateElement.innerHTML = dateElement.innerHTML.replace(/\n/g, '<br>');
   } 
   else if (imageUri) { // If the message is an image.
     var image = document.createElement('img');
