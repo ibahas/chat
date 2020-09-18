@@ -233,6 +233,7 @@ FriendlyChat.MESSAGE_TEMPLATE =
       '<div class="spacing"><div class="pic"></div></div>' +
       '<div class="message"></div>' +
       '<div class="name"></div>' +
+      '<div class="date"></div>' +
     '</div>';
 
 // A loading image URL.
@@ -248,7 +249,7 @@ function playMusic(file) {
 }
 
 // Displays a Message in the UI.
-FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
+FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri,date) {
   
     playMusic("https://notificationsounds.com/soundfiles/44c4c17332cace2124a1a836d9fc4b6f/file-sounds-1147-that-was-quick.mp3");
   var div = document.getElementById(key);
@@ -259,8 +260,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     div = container.firstChild;
     div.setAttribute('id', key);
     this.messageList.appendChild(div);
-  }
-  if (picUrl) {
+  }if (picUrl) {
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
   div.querySelector('.name').textContent = name;
@@ -269,7 +269,13 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     messageElement.textContent = text;
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
-  } else if (imageUri) { // If the message is an image.
+  } var dateElement = div.querySelector('.date');
+  if (text) { // If the message is text.
+    dateElement.textContent = date;
+    // Replace all line breaks by <br>.
+    dateElement.innerHTML = dateElement.innerHTML.replace(/\n/g, '<br>');
+  } 
+  else if (imageUri) { // If the message is an image.
     var image = document.createElement('img');
     image.addEventListener('load', function() {
       this.messageList.scrollTop = this.messageList.scrollHeight;
