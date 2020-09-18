@@ -78,6 +78,8 @@ FriendlyChat.prototype.loadMessages = function() {
   this.messagesRef.limitToLast(20).on('child_changed', setMessage);
 };
 
+var d = new Date();
+
 // Saves a new message on the Firebase DB.
 FriendlyChat.prototype.saveMessage = function(e) {
   e.preventDefault();
@@ -86,7 +88,7 @@ FriendlyChat.prototype.saveMessage = function(e) {
     var currentUser = this.auth.currentUser;
     // Add a new message entry to the Firebase Database.
     this.messagesRef.push({
-      date: now(),
+      date:  d.getFullYear() + "/" + (d.getMonth() + 1 ) + "/" + d.getDay() ,
       name: currentUser.displayName,
       text: this.messageInput.value,
       photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
@@ -138,7 +140,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
     // We add a message with a loading icon that will get updated with the shared image.
     var currentUser = this.auth.currentUser;
     this.messagesRef.push({
-      date: now(),
+      date:  d.getFullYear() + "/" + (d.getMonth() + 1 ) + "/" + d.getDay() ,
       name: currentUser.displayName,
       imageUrl: FriendlyChat.LOADING_IMAGE_URL,
       photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
