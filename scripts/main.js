@@ -270,7 +270,7 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     // Replace all line breaks by <br>.
     messageElement.innerHTML = messageElement.innerHTML.replace(/\n/g, '<br>');
   } var dateElement = div.querySelector('.date');
-  if (text) { // If the message is text.
+  if (date) { // If the message is text.
     dateElement.textContent = date;
     // Replace all line breaks by <br>.
     dateElement.innerHTML = dateElement.innerHTML.replace(/\n/g, '<br>');
