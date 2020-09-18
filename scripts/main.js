@@ -54,8 +54,6 @@ function FriendlyChat() {
 
 // Sets up shortcuts to Firebase features and initiate firebase auth.
 FriendlyChat.prototype.initFirebase = function() {
-  console.log("initFirebase");
-
   // Shortcuts to Firebase SDK features.
   this.auth = firebase.auth();
   this.database = firebase.database();
@@ -66,8 +64,6 @@ FriendlyChat.prototype.initFirebase = function() {
 
 // Loads chat messages history and listens for upcoming ones.
 FriendlyChat.prototype.loadMessages = function() {
-  console.log("loadMessages");
-
   // Reference to the /messages/ database path.
   this.messagesRef = this.database.ref('messages');
   // Make sure we remove all previous listeners.
@@ -84,14 +80,13 @@ FriendlyChat.prototype.loadMessages = function() {
 
 // Saves a new message on the Firebase DB.
 FriendlyChat.prototype.saveMessage = function(e) {
-  console.log("saveMessage");
-
   e.preventDefault();
   // Check that the user entered a message and is signed in.
   if (this.messageInput.value && this.checkSignedInWithMessage()) {
     var currentUser = this.auth.currentUser;
     // Add a new message entry to the Firebase Database.
     this.messagesRef.push({
+      date:date,
       name: currentUser.displayName,
       text: this.messageInput.value,
       photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
@@ -123,8 +118,6 @@ FriendlyChat.prototype.setImageUrl = function(imageUri, imgElement) {
 // Saves a new message containing an image URI in Firebase.
 // This first saves the image in Firebase storage.
 FriendlyChat.prototype.saveImageMessage = function(event) {
-  console.log("saveImageMessage");
-
   var file = event.target.files[0];
 
   // Clear the selection in the file picker input.
@@ -145,6 +138,7 @@ FriendlyChat.prototype.saveImageMessage = function(event) {
     // We add a message with a loading icon that will get updated with the shared image.
     var currentUser = this.auth.currentUser;
     this.messagesRef.push({
+      date:date,
       name: currentUser.displayName,
       imageUrl: FriendlyChat.LOADING_IMAGE_URL,
       photoUrl: currentUser.photoURL || '/images/profile_placeholder.png'
@@ -179,8 +173,6 @@ FriendlyChat.prototype.signOut = function() {
 
 // Triggers when the auth state change for instance when the user signs-in or signs-out.
 FriendlyChat.prototype.onAuthStateChanged = function(user) {
-  console.log("onAuthStateChanged");
-
   if (user) { // User is signed in!
     // Get profile pic and user's name from the Firebase user object.
     var profilePicUrl = user.photoURL;   
@@ -213,8 +205,6 @@ FriendlyChat.prototype.onAuthStateChanged = function(user) {
 
 // Returns true if user is signed-in. Otherwise false and displays a message.
 FriendlyChat.prototype.checkSignedInWithMessage = function() {
-  console.log("checkSignedInWithMessage");
-
   // Return true if the user is signed in Firebase
   if (this.auth.currentUser) {
     return true;
@@ -231,8 +221,6 @@ FriendlyChat.prototype.checkSignedInWithMessage = function() {
 
 // Resets the given MaterialTextField.
 FriendlyChat.resetMaterialTextfield = function(element) {
-  console.log("checkSignedInWithMessage");
-  
   element.value = '';
   element.parentNode.MaterialTextfield.boundUpdateClassesHandler();
 };
@@ -260,7 +248,7 @@ function playMusic(file) {
 // Displays a Message in the UI.
 FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageUri) {
   
-  console.log("displayMessage");
+    playMusic("https://notificationsounds.com/soundfiles/44c4c17332cace2124a1a836d9fc4b6f/file-sounds-1147-that-was-quick.mp3");
   var div = document.getElementById(key);
   // If an element for that message does not exists yet we create it.
   if (!div) {
@@ -274,7 +262,6 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
     div.querySelector('.pic').style.backgroundImage = 'url(' + picUrl + ')';
   }
   div.querySelector('.name').textContent = name;
-  
   var messageElement = div.querySelector('.message');
   if (text) { // If the message is text.
     messageElement.textContent = text;
@@ -298,8 +285,6 @@ FriendlyChat.prototype.displayMessage = function(key, name, text, picUrl, imageU
 // Enables or disables the submit button depending on the values of the input
 // fields.
 FriendlyChat.prototype.toggleButton = function() {
-  console.log("toggleButton");
-
   if (this.messageInput.value) {
     this.submitButton.removeAttribute('disabled');
   } else {
@@ -309,8 +294,6 @@ FriendlyChat.prototype.toggleButton = function() {
 
 // Checks that the Firebase SDK has been correctly setup and configured.
 FriendlyChat.prototype.checkSetup = function() {
-  console.log("toggleButton");
-
   if (!window.firebase || !(firebase.app instanceof Function) || !window.config) {
     window.alert('You have not configured and imported the Firebase SDK. ' +
         'Make sure you go through the codelab setup instructions.');
@@ -325,7 +308,5 @@ FriendlyChat.prototype.checkSetup = function() {
 };
 
 window.onload = function() {
-  console.log("onload");
-
   window.friendlyChat = new FriendlyChat();
 };
